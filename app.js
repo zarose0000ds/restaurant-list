@@ -22,6 +22,12 @@ app.get('/restaurants/:id', (req, res) => {
   res.render('show', { restaurant: restaurant.results[id - 1] })
 })
 
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  const restaurants = restaurant.results.filter(item => (item.name.includes(keyword) || item.category.includes(keyword)))
+  res.render('search', { keyword, restaurants })
+})
+
 // LISTENING
 app.listen(port, () => {
   console.log(`The server is listening on http://localhost:${port}`)
