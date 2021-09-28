@@ -14,11 +14,12 @@ app.use(express.static('public'))
 
 // ROUTES
 app.get('/', (req, res) => {
-  res.render('index')
+  res.render('index', { restaurants: restaurant.results })
 })
 
 app.get('/restaurants/:id', (req, res) => {
-  res.render('show')
+  const id = req.params.id
+  res.render('show', { restaurant: restaurant.results[id - 1] })
 })
 
 // LISTENING
