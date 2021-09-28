@@ -24,7 +24,15 @@ app.get('/restaurants/:id', (req, res) => {
 
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  const restaurants = restaurant.results.filter(item => (item.name.includes(keyword) || item.category.includes(keyword)))
+  const keywordList = keyword.split(' ').filter(item => item !== '') //THE LIST CONTAIN EVERY VALID KEYWORD
+  const restaurants = restaurant.results.filter(item => {
+    // CHECK IF RESTAURANT NAME OR CATEGORY INCLUDES ANY KEYWORD
+    for (let i = 0; i < keywordList.length; i++) {
+      if (item.name.includes(keywordList[i]) || item.category.includes(keywordList[i])) {
+        return true
+      }
+    }
+  })
   res.render('search', { keyword, restaurants })
 })
 
