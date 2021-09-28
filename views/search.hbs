@@ -20,6 +20,7 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
+      {{#if restaurants}}
       <div class="card-columns">
         {{#each restaurants}}
         <a href="/restaurants/{{this.id}}" class="text-secondary">
@@ -41,6 +42,11 @@
         </a>
         {{/each}}
       </div>
+      {{else}}
+      <div class="search-result-none">
+        <span>【找不到符合的結果，請換個關鍵字試試】</h1>
+      </div>
+      {{/if}}
     </div>
   </div>
 </div>

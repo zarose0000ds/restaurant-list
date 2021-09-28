@@ -35,6 +35,14 @@ header {
   color: #9b4b4b;
 }
 
+.search-result-none > span{
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: #226089;
+}
+
 .form-control::placeholder {
   color: #aaaaaa;
   font-size: 0.8rem;
