@@ -25,6 +25,12 @@ app.get('/restaurants/:id', (req, res) => {
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
   const keywordList = keyword.split(' ').filter(item => item !== '') //THE LIST CONTAIN EVERY VALID KEYWORD
+
+  // REDIRECT TO HOME PAGE WHEN KEYWORD IS EMPTY
+  if (keywordList.length <= 0) {
+    return res.redirect('/')
+  }
+
   const restaurants = restaurant.results.filter(item => {
     // CHECK IF RESTAURANT NAME OR CATEGORY INCLUDES ANY KEYWORD
     for (let i = 0; i < keywordList.length; i++) {
