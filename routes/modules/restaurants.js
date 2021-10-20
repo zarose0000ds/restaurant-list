@@ -23,9 +23,36 @@ router.get('/search', (req, res) => {
   )).then(() => res.render('search', { keyword, restaurants: results })).catch(e => console.log(e))
 })
 
+router.get('/new', (req, res) => {
+  res.render('new')
+})
+
+router.post('/', (req, res) => {
+  const { name, name_en, category, location, phone, description } = req.body
+  Restaurant.create({
+    name,
+    name_en,
+    category,
+    image: 'https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg',
+    location,
+    phone,
+    description
+  }).then(() => res.redirect('/')).catch(e => console.log(e))
+})
+
 router.get('/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id).lean().then(restaurant => res.render('show', { restaurant }))
+})
+
+router.get('/:id/edit', (req, res) => {
+  const id = req.params.id
+  Restaurant.findById(id).lean().then(restaurant => console.log(restaurant)).catch(e => console.log(e))
+})
+
+router.delete('/:id', (req, res) => {
+  const id = req.params.id
+  Restaurant.findById(id).then(restaurant => restaurant.remove()).then(() => res.redirect('/')).catch(e => console.log(e))
 })
 
 module.exports = router

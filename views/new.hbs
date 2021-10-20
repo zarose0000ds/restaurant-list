@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-10 mx-auto">
+      <form class="mt-5" action="/restaurants" method="POST">
+        <div class="form-group">
+          <label for="name">中文名稱</label>
+          <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="name-en">英文名稱</label>
+          <input type="text" class="form-control" id="name-en" name="name_en">
+        </div>
+        <div class="form-group">
+          <label for="category">類型</label>
+          <input type="text" class="form-control" id="category" name="category">
+        </div>
+        <div class="form-group">
+          <label for="image">封面圖片</label>
+          <input type="file" class="form-control-file" id="image" accept="image/*" name="image">
+        </div>
+        <div class="form-group">
+          <label for="location">地址</label>
+          <input type="text" class="form-control" id="location" name="location">
+        </div>
+        <div class="form-group">
+          <label for="phone">電話</label>
+          <input type="text" class="form-control" id="phone" name="phone">
+        </div>
+        <div class="form-group">
+          <label for="description">餐廳簡介</label>
+          <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">新增餐廳</button>
+      </form>
+    </div>
+  </div>
+</div>

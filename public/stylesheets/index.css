@@ -43,6 +43,17 @@ header {
   color: #226089;
 }
 
+.btn-create a {
+  padding: 0 8px 2px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #3185f3;
+  background: transparent;
+  border: 3px solid #3185f3;
+  border-radius: 5px;
+}
+
 .form-control::placeholder {
   color: #aaaaaa;
   font-size: 0.8rem;
@@ -84,6 +95,29 @@ header {
   text-align: center;
   font-size: 3rem;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.card-footer a {
+  color: #2f76c7;
+}
+
+.card-footer form {
+  display: inline-block;
+}
+
+.card-footer button {
+  border: 0;
+  border-radius: 3px;
+  color: white;
+  background: #2f76c7;
 }
 
 @media screen and (max-width: 992px) {
