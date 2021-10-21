@@ -4,6 +4,7 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant.js')
 
 router.get('/search', (req, res) => {
+  const userId = req.user._id
   const keyword = req.query.keyword
   const keywordList = keyword.split(' ').filter(item => item !== '') //THE LIST CONTAIN EVERY VALID KEYWORD
   let results = []
@@ -14,7 +15,7 @@ router.get('/search', (req, res) => {
   }
 
   Promise.all(Array.from({ length: keywordList.length },
-    (_, i) => Restaurant.find({
+    (_, i) => Restaurant.find({ userId,
       $or: [
         { name: { $regex: keywordList[i], $options: 'i' } },
         { category: { $regex: keywordList[i], $options: 'i' } }
