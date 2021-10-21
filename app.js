@@ -1,10 +1,12 @@
 const express = require('express')
+const session = require('express-session')
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+const usePassport = require('./config/passport')
 const routes = require('./routes')
 const Restaurant = require('./models/restaurant.js')
 
@@ -26,6 +28,23 @@ app.use(express.urlencoded({ extended: true }))
 
 // STATIC FILES
 app.use(express.static('public'))
+
+// SESSION
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}))
+
+// PASSPORT
+usePassport(app)
+
+// RES LOCALS
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 
 // ROUTER
 app.use(routes)

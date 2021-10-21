@@ -10,5 +10,6 @@ Desktop.ini
 
 # npm
 node_modules
+.env
 *.log
 *.gz
