@@ -28,6 +28,7 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  const userId = req.user._id
   const { name, name_en, category, location, phone, description } = req.body
   Restaurant.create({
     name,
@@ -36,24 +37,28 @@ router.post('/', (req, res) => {
     image: 'https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg',
     location,
     phone,
-    description
+    description,
+    userId
   }).then(() => res.redirect('/')).catch(e => console.log(e))
 })
 
 router.get('/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findById(id).lean().then(restaurant => res.render('show', { restaurant })).catch(e => console.log(e))
+  const userId = req.user._id
+  const _id = req.params.id
+  Restaurant.findOne({ _id, userId }).lean().then(restaurant => res.render('show', { restaurant })).catch(e => console.log(e))
 })
 
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  Restaurant.findById(id).lean().then(restaurant => res.render('edit', { restaurant })).catch(e => console.log(e))
+  const userId = req.user._id
+  const _id = req.params.id
+  Restaurant.findOne({ _id, userId }).lean().then(restaurant => res.render('edit', { restaurant })).catch(e => console.log(e))
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, name_en, category, location, phone, description } = req.body
-  Restaurant.findById(id).then(restaurant => {
+  Restaurant.findOne({ _id, userId }).then(restaurant => {
     restaurant.name = name
     restaurant.name_en = name_en
     restaurant.category = category
@@ -61,12 +66,13 @@ router.put('/:id', (req, res) => {
     restaurant.phone = phone
     restaurant.description = description
     restaurant.save()
-  }).then(() => res.redirect(`/restaurants/${id}`)).catch(e => console.log(e))
+  }).then(() => res.redirect(`/restaurants/${_id}`)).catch(e => console.log(e))
 })
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findById(id).then(restaurant => restaurant.remove()).then(() => res.redirect('/')).catch(e => console.log(e))
+  const userId = req.user._id
+  const _id = req.params.id
+  Restaurant.findOne({ _id, userId }).then(restaurant => restaurant.remove()).then(() => res.redirect('/')).catch(e => console.log(e))
 })
 
 module.exports = router
