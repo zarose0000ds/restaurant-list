@@ -42,12 +42,26 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const id = req.params.id
-  Restaurant.findById(id).lean().then(restaurant => res.render('show', { restaurant }))
+  Restaurant.findById(id).lean().then(restaurant => res.render('show', { restaurant })).catch(e => console.log(e))
 })
 
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
-  Restaurant.findById(id).lean().then(restaurant => console.log(restaurant)).catch(e => console.log(e))
+  Restaurant.findById(id).lean().then(restaurant => res.render('edit', { restaurant })).catch(e => console.log(e))
+})
+
+router.put('/:id', (req, res) => {
+  const id = req.params.id
+  const { name, name_en, category, location, phone, description } = req.body
+  Restaurant.findById(id).then(restaurant => {
+    restaurant.name = name
+    restaurant.name_en = name_en
+    restaurant.category = category
+    restaurant.location = location
+    restaurant.phone = phone
+    restaurant.description = description
+    restaurant.save()
+  }).then(() => res.redirect(`/restaurants/${id}`)).catch(e => console.log(e))
 })
 
 router.delete('/:id', (req, res) => {
