@@ -69,6 +69,10 @@ header {
   border-color: #ced4da;
 }
 
+.card-columns a:hover {
+  text-decoration: none;
+}
+
 .card {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
@@ -106,6 +110,10 @@ header {
 }
 
 .card-footer a {
+  height: 28px;
+  padding: 0 4px;
+  border: 2px solid #2f76c7;
+  border-radius: 3px;
   color: #2f76c7;
 }
 
@@ -114,6 +122,7 @@ header {
 }
 
 .card-footer button {
+  height: 28px;
   border: 0;
   border-radius: 3px;
   color: white;
