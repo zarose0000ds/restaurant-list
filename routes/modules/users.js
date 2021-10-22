@@ -28,10 +28,10 @@ router.post('/register', (req, res) => {
   if (!email || !password || !confirmPassword) {
     errors.push({ message: '有尚未填寫的必填欄位！。' })
   }
-  if (!emailReg.test(email)) {
+  if (email && !emailReg.test(email)) {
     errors.push({ message: '請填寫正確的電子郵件格式！' })
   }
-  if (!passwordReg.test(password)) {
+  if (password && !passwordReg.test(password)) {
     errors.push({ message: '密碼不符合規定條件！' })
   }
   if (password !== confirmPassword) {
