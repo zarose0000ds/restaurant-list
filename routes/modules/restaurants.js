@@ -7,21 +7,20 @@ router.get('/search', (req, res) => {
   const userId = req.user._id
   const keyword = req.query.keyword
   const keywordList = keyword.split(' ').filter(item => item !== '') //THE LIST CONTAIN EVERY VALID KEYWORD
-  let results = []
 
   // REDIRECT TO HOME PAGE WHEN KEYWORD IS EMPTY
   if (keywordList.length <= 0) {
     return res.redirect('/')
   }
 
-  Promise.all(Array.from({ length: keywordList.length },
-    (_, i) => Restaurant.find({ userId,
-      $or: [
-        { name: { $regex: keywordList[i], $options: 'i' } },
-        { category: { $regex: keywordList[i], $options: 'i' } }
-      ]
-    }).lean().then(restaurants => results = results.concat(restaurants))
-  )).then(() => res.render('search', { keyword, restaurants: results })).catch(e => console.log(e))
+  // CREATE QUERY ARRAY
+  const query = []
+  keywordList.forEach(kw => {
+    query.push({ name: { $regex: kw, $options: 'i' } })
+    query.push({ category: { $regex: kw, $options: 'i' } })
+  })
+
+  Restaurant.find({ userId, $or: query}).lean().then(restaurants => res.render('search', { restaurants })).catch(e => console.log(e))
 })
 
 router.get('/new', (req, res) => {
