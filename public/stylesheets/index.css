@@ -59,6 +59,16 @@ header {
   font-size: 0.8rem;
 }
 
+.field-hint {
+  margin-top: 6px;
+  font-size: 0.5rem;
+  color: #df6057;
+}
+
+.form-hint {
+  font-size: 0.8rem;
+}
+
 .btn-major {
   background-color: #9b4b4b;
   color: white;
@@ -127,6 +137,13 @@ header {
   border-radius: 3px;
   color: white;
   background: #2f76c7;
+}
+
+.rating-num {
+  padding: 0 4px;
+  margin-left: 2px;
+  border-radius: 3px;
+  background: #444;
 }
 
 @media screen and (max-width: 992px) {

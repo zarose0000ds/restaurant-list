@@ -1,37 +1,52 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-10 mx-auto">
+    <div class="col-12 col-md-6 mx-auto">
       <form class="mt-5" action="/restaurants" method="POST">
         <div class="form-group">
-          <label for="name">中文名稱</label>
+          <label class="font-weight-bold" for="name"><i style="color: red; font-weight: 500;">*</i> 中文名稱</label>
           <input type="text" class="form-control" id="name" name="name">
         </div>
         <div class="form-group">
-          <label for="name-en">英文名稱</label>
+          <label class="font-weight-bold" for="name-en">英文名稱</label>
           <input type="text" class="form-control" id="name-en" name="name_en">
         </div>
         <div class="form-group">
-          <label for="category">類型</label>
+          <label class="font-weight-bold" for="category"><i style="color: red; font-weight: 500;">*</i> 類型</label>
           <input type="text" class="form-control" id="category" name="category">
         </div>
         <div class="form-group">
-          <label for="image">封面圖片</label>
+          <label class="font-weight-bold" for="image">封面圖片</label>
           <input type="file" class="form-control-file" id="image" accept="image/*" name="image">
         </div>
         <div class="form-group">
-          <label for="location">地址</label>
+          <label class="font-weight-bold" for="location"><i style="color: red; font-weight: 500;">*</i> 地址</label>
           <input type="text" class="form-control" id="location" name="location">
         </div>
         <div class="form-group">
-          <label for="phone">電話</label>
+          <label class="font-weight-bold" for="phone"><i style="color: red; font-weight: 500;">*</i> 電話</label>
           <input type="text" class="form-control" id="phone" name="phone">
         </div>
         <div class="form-group">
-          <label for="description">餐廳簡介</label>
+          <label class="font-weight-bold" for="rating">評分<span class="rating-num" style="color: hsl(62, 85%, 75%)">3.0</span></label>
+          <input type="range" class="form-control-range" id="rating" list="rating-marks" min="1" max="5" step="0.1">
+          <datalist id="rating-marks">
+            <option value="1" label="1"></option>
+            <option value="2" label="2"></option>
+            <option value="3" label="3"></option>
+            <option value="4" label="4"></option>
+            <option value="5" label="5"></option>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold" for="description"><i style="color: red; font-weight: 500;">*</i> 餐廳簡介</label>
           <textarea class="form-control" id="description" rows="3" name="description"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary mb-2">新增餐廳</button>
+        <p class="form-hint"><i style="color: red; font-weight: 500;">*</i> 為必填欄位</p>
+        <button type="submit" class="btn btn-primary mt-2 mb-3">新增餐廳</button>
       </form>
     </div>
   </div>
 </div>
+
+<!-- scripts -->
+<script src="/javascripts/createForm.js"></script>
