@@ -7,21 +7,24 @@
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" value="{{name}}">
+          <p class="field-hint">若未填寫則以Email帳號作為預設名稱</p>
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email"><i style="color: red; font-weight: 500;">*</i> Email</label>
           <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" value="{{email}}">
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password"><i style="color: red; font-weight: 500;">*</i> Password</label>
           <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" value="{{password}}">
+          <p class="field-hint">密碼須為英數混合，長度在8 ~ 24字元之間</p>
         </div>
         <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
+          <label for="confirmPassword"><i style="color: red; font-weight: 500;">*</i> Confirm Password</label>
           <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password"
                  value="{{confirmPassword}}"
           >
         </div>
+        <p class="form-hint"><i style="color: red; font-weight: 500;">*</i> 為必填欄位</p>
         <button type="submit" class="btn btn-primary btn-block">Register</button>
         <a href="/auth/facebook" class="btn btn-info btn-block">Facebook Login</a>
       </form>

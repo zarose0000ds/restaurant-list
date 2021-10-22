@@ -21,13 +21,21 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
+  const emailReg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
+  const passwordReg = /^(?=.*\d)(?=.*[a-zA-Z]).{8,24}$/
   const errors = []
 
   if (!email || !password || !confirmPassword) {
     errors.push({ message: '有尚未填寫的必填欄位！。' })
   }
+  if (!emailReg.test(email)) {
+    errors.push({ message: '請填寫正確的電子郵件格式！' })
+  }
+  if (!passwordReg.test(password)) {
+    errors.push({ message: '密碼不符合規定條件！' })
+  }
   if (password !== confirmPassword) {
-    errors.pish({ message: '密碼與確認密碼不相符！' })
+    errors.push({ message: '密碼與確認密碼不相符！' })
   }
   if (errors.length) {
     return res.render('register', {
