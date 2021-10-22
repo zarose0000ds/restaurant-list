@@ -23,8 +23,8 @@ router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
   const errors = []
 
-  if (!name || !email || !password || !confirmPassword) {
-    errors.push({ message: '所有欄位都是必填。' })
+  if (!email || !password || !confirmPassword) {
+    errors.push({ message: '有尚未填寫的必填欄位！。' })
   }
   if (password !== confirmPassword) {
     errors.pish({ message: '密碼與確認密碼不相符！' })
@@ -50,11 +50,18 @@ router.post('/register', (req, res) => {
         confirmPassword
       })
     }
+
     return bcrypt.genSalt(10).then(salt => bcrypt.hash(password, salt)).then(hash => User.create({
       name,
       email,
       password: hash
-    })).then(() => res.redirect('/')).catch(e => console.log(e))
+    })).then(user => {
+      // USE EMAIL LOCAL-PART AS USER NAME IF NOT EXISTS
+      if (user.name.length <= 0) {
+        user.name = user.email.split('@')[0]
+        user.save()
+      }
+    }).then(() => res.redirect('/')).catch(e => console.log(e))
   })
 })
 
