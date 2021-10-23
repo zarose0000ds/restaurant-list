@@ -79,7 +79,13 @@ header {
   border-color: #ced4da;
 }
 
-.card-columns a:hover {
+.card-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 12px;
+}
+
+.card-container a:hover {
   text-decoration: none;
 }
 
@@ -88,7 +94,7 @@ header {
 }
 
 .card img{
-  height: 180px;
+  height: auto;
   object-fit: contain;
 }
 
@@ -108,7 +114,7 @@ header {
   top: -100px;
   color: white;
   text-align: center;
-  font-size: 3rem;
+  font-size: 2rem;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -147,20 +153,20 @@ header {
   background: #444;
 }
 
-@media screen and (max-width: 992px) {
-  .card img{
-    height: 115px;
+@media screen and (min-width: 768px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
   }
-}
-
-@media screen and (max-width: 768px) {
+  .card img {
+    height: 180px;
+  }
   .restaurant-show-title {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }
 
-@media screen and (max-width: 575px) {
-  .card img{
-    height: auto;
+@media screen and (min-width: 992px) {
+  .card-container {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
