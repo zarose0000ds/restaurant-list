@@ -94,7 +94,7 @@ router.get('/:id/edit', (req, res) => {
   Restaurant.findOne({ _id, userId }).lean().then(restaurant => res.render('edit', { restaurant })).catch(e => console.log(e))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', upload.single('image'), (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
   const { name, name_en, category, location, phone, rating, description } = req.body
@@ -133,6 +133,24 @@ router.put('/:id', (req, res) => {
     restaurant.phone = phone
     restaurant.rating = rating,
     restaurant.description = description
+    
+    // NEW IMAGE UPLOAD
+    if (req.file) {
+      const restaurantId = restaurant._id
+
+      // REMOVE OLD IMAGE IF EXISTS
+      Image.findOne({ restaurantId }).then(image => {
+        if (image) return image.remove()
+      })
+      
+      return Promise.all([
+        Image.create({ content: req.file.buffer, restaurantId }).then(image => {
+          restaurant.image = `/uploads/${image._id}`
+          restaurant.save()
+        })
+      ])
+    }
+
     restaurant.save()
   }).then(() => res.redirect(`/restaurants/${_id}`)).catch(e => console.log(e))
 })
