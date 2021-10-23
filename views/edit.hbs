@@ -4,37 +4,62 @@
       {{> message}}
       <form action="/restaurants/{{restaurant._id}}{{_id}}?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="form-group">
-          <label for="name"><i style="color: red; font-weight: 500;">*</i> 中文名稱</label>
+          <label class="font-weight-bold" for="name"><i style="color: red; font-weight: 500;">*</i> 中文名稱</label>
           <input type="text" class="form-control" id="name" name="name" value="{{restaurant.name}}{{name}}">
         </div>
         <div class="form-group">
-          <label for="name-en">英文名稱</label>
+          <label class="font-weight-bold" for="name-en">英文名稱</label>
           <input type="text" class="form-control" id="name-en" name="name_en" value="{{restaurant.name_en}}{{name_en}}">
         </div>
         <div class="form-group">
-          <label for="category"><i style="color: red; font-weight: 500;">*</i> 類型</label>
-          <input type="text" class="form-control" id="category" name="category" value="{{restaurant.category}}{{category}}">
+          <label class="font-weight-bold" for="category"><i style="color: red; font-weight: 500;">*</i> 類型</label>
+          <select class="custom-select" id="category" name="category" value="{{restaurant.category}}{{category}}">
+            <option {{#is category "中東料理"}} selected {{/is}}
+                    {{#is restaurant.category "中東料理"}} selected {{/is}}>中東料理
+            </option>
+            <option {{#is category "日本料理"}} selected {{/is}}
+                    {{#is restaurant.category "日本料理"}} selected {{/is}}>日本料理
+            </option>
+            <option {{#is category "義式餐廳"}} selected {{/is}}
+                    {{#is restaurant.category "義式餐廳"}} selected {{/is}}>義式餐廳
+            </option>
+            <option {{#is category "自助吧"}} selected {{/is}}
+                    {{#is restaurant.category "自助吧"}} selected {{/is}}>自助吧
+            </option>
+            <option {{#is category "中式"}} selected {{/is}}
+                    {{#is restaurant.category "中式"}} selected {{/is}}>中式
+            </option>
+            <option {{#is category "美式"}} selected {{/is}}
+                    {{#is restaurant.category "美式"}} selected {{/is}}>美式
+            </option>
+            <option {{#is category "酒吧"}} selected {{/is}}
+                    {{#is restaurant.category "酒吧"}} selected {{/is}}>酒吧
+            </option>
+            <option {{#is category "咖啡"}} selected {{/is}}
+                    {{#is restaurant.category "咖啡"}} selected {{/is}}>咖啡
+            </option>
+          </select>
         </div>
         <div class="form-group">
-          <label class="font-weight-bold" for="image">封面圖片</label>
+          <label class="font-weight-bold" class="font-weight-bold" for="image">封面圖片</label>
           <input type="file" class="form-control-file" id="image" accept="image/*" name="image">
         </div>
         <div class="form-group">
-          <label for="location"><i style="color: red; font-weight: 500;">*</i> 地址</label>
-          <input type="text" class="form-control" id="location" name="location" value="{{restaurant.location}}{{location}}">
+          <label class="font-weight-bold" for="location"><i style="color: red; font-weight: 500;">*</i> 地址</label>
+          <input type="text" class="form-control" id="location" name="location"
+            value="{{restaurant.location}}{{location}}">
         </div>
         <div class="form-group">
-          <label for="phone"><i style="color: red; font-weight: 500;">*</i> 電話</label>
+          <label class="font-weight-bold" for="phone"><i style="color: red; font-weight: 500;">*</i> 電話</label>
           <input type="text" class="form-control" id="phone" name="phone" value="{{restaurant.phone}}{{phone}}">
           <p class="field-hint"><i class="fas fa-info-circle"></i> 請填寫市話，格式為：01 2345 6789</p>
         </div>
         <div class="form-group">
-          <label class="font-weight-bold" for="rating">
+          <label class="font-weight-bold" class="font-weight-bold" for="rating">
             評分<span class="rating-num"></span>
           </label>
-          <input type="range" class="form-control-range" id="rating" name="rating" list="rating-marks"
-                 min="1" max="5" step="0.1" value="{{restaurant.rating}}{{rating}}"
-          >
+          <input type="range" class="form-control-range" id="rating" name="rating" list="rating-marks" min="1" max="5"
+            step="0.1" value="{{restaurant.rating}}{{rating}}">
           <datalist id="rating-marks">
             <option value="1" label="1"></option>
             <option value="2" label="2"></option>
@@ -44,7 +69,7 @@
           </datalist>
         </div>
         <div class="form-group">
-          <label for="description"><i style="color: red; font-weight: 500;">*</i> 餐廳簡介</label>
+          <label class="font-weight-bold" for="description"><i style="color: red; font-weight: 500;">*</i> 餐廳簡介</label>
           <textarea class="form-control" id="description" rows="3"
             name="description">{{restaurant.description}}{{description}}</textarea>
         </div>

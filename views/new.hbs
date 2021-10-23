@@ -13,7 +13,16 @@
         </div>
         <div class="form-group">
           <label class="font-weight-bold" for="category"><i style="color: red; font-weight: 500;">*</i> 類型</label>
-          <input type="text" class="form-control" id="category" name="category" value="{{category}}">
+          <select class="custom-select" id="category" name="category">
+            <option {{#is category "中東料理"}} selected {{/is}}>中東料理</option>
+            <option {{#is category "日本料理"}} selected {{/is}}>日本料理</option>
+            <option {{#is category "義式餐廳"}} selected {{/is}}>義式餐廳</option>
+            <option {{#is category "自助吧"}} selected {{/is}}>自助吧</option>
+            <option {{#is category "中式"}} selected {{/is}}>中式</option>
+            <option {{#is category "美式"}} selected {{/is}}>美式</option>
+            <option {{#is category "酒吧"}} selected {{/is}}>酒吧</option>
+            <option {{#is category "咖啡"}} selected {{/is}}>咖啡</option>
+          </select>
         </div>
         <div class="form-group">
           <label class="font-weight-bold" for="image">封面圖片</label>
