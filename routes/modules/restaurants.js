@@ -33,6 +33,7 @@ router.get('/new', (req, res) => {
 router.post('/', upload.single('image'), (req, res) => {
   const userId = req.user._id
   const { name, name_en, category, location, phone, rating, description } = req.body
+  let google_map = req.body.google_map
   const nameEnReg = /^[a-zA-Z0-9\s]+$/
   const phoneReg = /^\d{2,3}\s\d{3,4}\s\d{4}$/
   const errors = []
@@ -54,10 +55,14 @@ router.post('/', upload.single('image'), (req, res) => {
       category,
       location,
       phone,
+      google_map,
       rating,
       description
     })
   }
+
+  // SET DEFAULT GOOGLE MAP URL IF NOT GIVEN
+  if (!google_map) google_map = `https://www.google.com/maps/place/${location}`
 
   Restaurant.create({
     name,
@@ -66,6 +71,7 @@ router.post('/', upload.single('image'), (req, res) => {
     image: '/uploads/restaurant-default',
     location,
     phone,
+    google_map,
     rating,
     description,
     userId
@@ -91,13 +97,21 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  Restaurant.findOne({ _id, userId }).lean().then(restaurant => res.render('edit', { restaurant })).catch(e => console.log(e))
+  Restaurant.findOne({ _id, userId }).lean().then(restaurant => {
+    // PREVENT FROM SHOWING DEFAULT GOOGLE MAP SHARE LINK
+    if (restaurant.google_map !== `https://www.google.com/maps/place/${restaurant.location}`) {
+      const google_map = restaurant.google_map
+      return res.render('edit', { restaurant, google_map })
+    }
+    res.render('edit', { restaurant })
+  }).catch(e => console.log(e))
 })
 
 router.put('/:id', upload.single('image'), (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
   const { name, name_en, category, location, phone, rating, description } = req.body
+  let google_map = req.body.google_map
   const nameEnReg = /^[a-zA-Z0-9\s]+$/
   const phoneReg = /^\d{2,3}\s\d{3,4}\s\d{4}$/
   const errors = []
@@ -120,10 +134,14 @@ router.put('/:id', upload.single('image'), (req, res) => {
       category,
       location,
       phone,
+      google_map,
       rating,
       description
     })
   }
+
+  // SET DEFAULT GOOGLE MAP URL IF NOT GIVEN
+  if (!google_map) google_map = `https://www.google.com/maps/place/${location}`
 
   Restaurant.findOne({ _id, userId }).then(restaurant => {
     restaurant.name = name
@@ -131,6 +149,7 @@ router.put('/:id', upload.single('image'), (req, res) => {
     restaurant.category = category
     restaurant.location = location
     restaurant.phone = phone
+    restaurant.google_map = google_map
     restaurant.rating = rating,
     restaurant.description = description
     

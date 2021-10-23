@@ -33,6 +33,11 @@
           <input type="text" class="form-control" id="location" name="location" value="{{location}}">
         </div>
         <div class="form-group">
+          <label class="font-weight-bold" for="google_map">Google Map 分享連結</label>
+          <input type="url" class="form-control" id="google_map" name="google_map" value="{{google_map}}">
+          <p class="field-hint"><i class="fas fa-info-circle"></i> 未填寫的場合會自動以地址進行定位</p>
+        </div>
+        <div class="form-group">
           <label class="font-weight-bold" for="phone"><i style="color: red; font-weight: 500;">*</i> 電話</label>
           <input type="text" class="form-control" id="phone" name="phone" value="{{phone}}">
           <p class="field-hint"><i class="fas fa-info-circle"></i> 請填寫市話，格式為：01 2345 6789</p>

@@ -14,29 +14,21 @@
         <div class="form-group">
           <label class="font-weight-bold" for="category"><i style="color: red; font-weight: 500;">*</i> 類型</label>
           <select class="custom-select" id="category" name="category" value="{{restaurant.category}}{{category}}">
-            <option {{#is category "中東料理"}} selected {{/is}}
-                    {{#is restaurant.category "中東料理"}} selected {{/is}}>中東料理
+            <option {{#is category "中東料理" }} selected {{/is}} {{#is restaurant.category "中東料理" }} selected {{/is}}>中東料理
             </option>
-            <option {{#is category "日本料理"}} selected {{/is}}
-                    {{#is restaurant.category "日本料理"}} selected {{/is}}>日本料理
+            <option {{#is category "日本料理" }} selected {{/is}} {{#is restaurant.category "日本料理" }} selected {{/is}}>日本料理
             </option>
-            <option {{#is category "義式餐廳"}} selected {{/is}}
-                    {{#is restaurant.category "義式餐廳"}} selected {{/is}}>義式餐廳
+            <option {{#is category "義式餐廳" }} selected {{/is}} {{#is restaurant.category "義式餐廳" }} selected {{/is}}>義式餐廳
             </option>
-            <option {{#is category "自助吧"}} selected {{/is}}
-                    {{#is restaurant.category "自助吧"}} selected {{/is}}>自助吧
+            <option {{#is category "自助吧" }} selected {{/is}} {{#is restaurant.category "自助吧" }} selected {{/is}}>自助吧
             </option>
-            <option {{#is category "中式"}} selected {{/is}}
-                    {{#is restaurant.category "中式"}} selected {{/is}}>中式
+            <option {{#is category "中式" }} selected {{/is}} {{#is restaurant.category "中式" }} selected {{/is}}>中式
             </option>
-            <option {{#is category "美式"}} selected {{/is}}
-                    {{#is restaurant.category "美式"}} selected {{/is}}>美式
+            <option {{#is category "美式" }} selected {{/is}} {{#is restaurant.category "美式" }} selected {{/is}}>美式
             </option>
-            <option {{#is category "酒吧"}} selected {{/is}}
-                    {{#is restaurant.category "酒吧"}} selected {{/is}}>酒吧
+            <option {{#is category "酒吧" }} selected {{/is}} {{#is restaurant.category "酒吧" }} selected {{/is}}>酒吧
             </option>
-            <option {{#is category "咖啡"}} selected {{/is}}
-                    {{#is restaurant.category "咖啡"}} selected {{/is}}>咖啡
+            <option {{#is category "咖啡" }} selected {{/is}} {{#is restaurant.category "咖啡" }} selected {{/is}}>咖啡
             </option>
           </select>
         </div>
@@ -48,6 +40,11 @@
           <label class="font-weight-bold" for="location"><i style="color: red; font-weight: 500;">*</i> 地址</label>
           <input type="text" class="form-control" id="location" name="location"
             value="{{restaurant.location}}{{location}}">
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold" for="google_map">Google Map 分享連結</label>
+          <input type="url" class="form-control" id="google_map" name="google_map" value="{{google_map}}">
+          <p class="field-hint"><i class="fas fa-info-circle"></i> 未填寫的場合會自動以地址進行定位</p>
         </div>
         <div class="form-group">
           <label class="font-weight-bold" for="phone"><i style="color: red; font-weight: 500;">*</i> 電話</label>
