@@ -1,7 +1,10 @@
 const express = require('express')
+const multer = require('multer')
 const router = express.Router()
+const upload = multer()
 
 const Restaurant = require('../../models/restaurant.js')
+const Image = require('../../models/image.js')
 
 router.get('/search', (req, res) => {
   const userId = req.user._id
@@ -27,9 +30,9 @@ router.get('/new', (req, res) => {
   res.render('new')
 })
 
-router.post('/', (req, res) => {
+router.post('/', upload.single('image'), (req, res) => {
   const userId = req.user._id
-  const { name, name_en, category, image, location, phone, rating, description } = req.body
+  const { name, name_en, category, location, phone, rating, description } = req.body
   const nameEnReg = /^[a-zA-Z0-9\s]+$/
   const phoneReg = /^\d{2,3}\s\d{3,4}\s\d{4}$/
   const errors = []
@@ -60,12 +63,22 @@ router.post('/', (req, res) => {
     name,
     name_en,
     category,
-    image: 'https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg',
+    image: '/uploads/restaurant-default',
     location,
     phone,
     rating,
     description,
     userId
+  }).then(restaurant => {
+    if (req.file) {
+      const restaurantId = restaurant._id
+      return Promise.all([
+        Image.create({ content: req.file.buffer, restaurantId }).then(image => {
+          restaurant.image = `/uploads/${image._id}`
+          restaurant.save()
+        })
+      ])
+    }
   }).then(() => res.redirect('/')).catch(e => console.log(e))
 })
 
@@ -127,7 +140,11 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  Restaurant.findOne({ _id, userId }).then(restaurant => restaurant.remove()).then(() => res.redirect('/')).catch(e => console.log(e))
+  Restaurant.findOne({ _id, userId }).then(restaurant => {
+    const restaurantId = restaurant._id
+    Image.findOne({ restaurantId }).then(image => image.remove())
+    restaurant.remove()
+  }).then(() => res.redirect('/')).catch(e => console.log(e))
 })
 
 module.exports = router
