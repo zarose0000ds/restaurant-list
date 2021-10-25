@@ -20,6 +20,18 @@ header {
   filter: blur(3px);
 }
 
+.panel-p-absolute {
+  position: absolute;
+  width: 80%;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.panel-login {
+  top: 180px;
+}
+
 .search-bar .search-bar-outer {
   margin: 0 auto;
   max-width: 680px;
@@ -62,7 +74,7 @@ header {
 .field-hint {
   margin-top: 6px;
   font-size: 0.5rem;
-  color: #df6057;
+  color: #888;
 }
 
 .form-hint {
@@ -154,6 +166,9 @@ header {
 }
 
 @media screen and (min-width: 768px) {
+  .panel-p-absolute {
+    width: 60%;
+  }
   .card-container {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -166,6 +181,9 @@ header {
 }
 
 @media screen and (min-width: 992px) {
+  .panel-p-absolute {
+    width: 40%;
+  }
   .card-container {
     grid-template-columns: repeat(3, 1fr);
   }
