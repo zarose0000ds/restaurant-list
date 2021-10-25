@@ -8,53 +8,42 @@ const User = require('../user')
 const restaurant = require('../restaurant.json').results
 const db = require('../../config/mongoose')
 
-const REST_PER_USER = 3
 const SEED_USER = [
   {
     name: 'User1',
     email: 'user1@example.com',
     password: '12345678',
-    restaurant: [1, 2, 3]
+    restaurantId: [1, 2, 3]
   },
   {
     name: 'User2',
     email: 'user2@example.com',
     password: '12345678',
-    restaurant: [4, 5, 6]
+    restaurantId: [4, 5, 6]
   }
 ]
 
 db.once('open', () => {
-  SEED_USER.forEach((item, id) => {
-    const restId = item.restaurant
+  Promise.all(Array.from(SEED_USER, seedUser => {
+    const restaurantId = seedUser.restaurantId
 
-    bcrypt.genSalt(10).then(salt => bcrypt.hash(item.password, salt)).then(hash => User.create({
-      name: item.name,
-      email: item.email,
+    return bcrypt.genSalt(10).then(salt => bcrypt.hash(seedUser.password, salt)).then(hash => User.create({
+      name: seedUser.name,
+      email: seedUser.email,
       password: hash
     })).then(user => {
       const userId = user._id
+      const restaurants = []
 
-      return Promise.all(Array.from(
-        { length: REST_PER_USER },
-        (_, i) => Restaurant.create({
-          name: restaurant[restId[i] - 1].name,
-          name_en: restaurant[restId[i] - 1].name_en,
-          category: restaurant[restId[i] - 1].category,
-          image: restaurant[restId[i] - 1].image,
-          location: restaurant[restId[i] - 1].location,
-          phone: restaurant[restId[i] - 1].phone,
-          google_map: restaurant[restId[i] - 1].google_map,
-          rating: restaurant[restId[i] - 1].rating,
-          description: restaurant[restId[i] - 1].description,
-          userId
-        })
-      ))
-    }).then(() => {
-      if (id === SEED_USER.length - 1) {
-        console.log('done')
-        process.exit()
-      }
+      restaurantId.forEach(id => {
+        restaurant[id - 1].userId = userId
+        restaurants.push(restaurant[id - 1])
+      })
+
+      return Restaurant.create(restaurants)
     })
-  })
+  })).then(() => {
+    console.log('done')
+    process.exit()
+  }).catch(e => console.log(e))
 })
